@@ -26,10 +26,6 @@ app.register_blueprint(aclsf_bp, url_prefix='/advanced')
 app.register_blueprint(rgrs_bp, url_prefix='/regression')
 app.register_blueprint(clus_bp, url_prefix='/cluster')
 
-with open('./logging.json', 'r') as file:
-    config = json.load(file)
-dictConfig(config)
-
 def get_weather_main():
     ''' weather = None
     try:
