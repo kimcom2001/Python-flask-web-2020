@@ -1,10 +1,9 @@
-  
 import requests, time
 from selenium import webdriver
 from flask import current_app
 
 def get_sports_news(filename):
-    driver = webdriver.Chrome('./bp6_wordcloud/chromedriver')
+    driver = webdriver.Chrome('./bp5_wordcloud/chromedriver')
     url = 'https://sports.news.naver.com/index.nhn'
     driver.get(url)
     time.sleep(1)

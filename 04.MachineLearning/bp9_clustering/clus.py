@@ -1,13 +1,11 @@
 from flask import Blueprint, render_template, request, session, g
 from flask import current_app
 from werkzeug.utils import secure_filename
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import r2_score, mean_squared_error
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
 import os
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt 
 from my_util.weather import get_weather
 
@@ -30,7 +28,7 @@ def get_weather_main():
 def cluster():
     menu = {'ho':0, 'da':0, 'ml':1, 
             'se':0, 'co':0, 'cg':0, 'cr':0, 'wc':0,
-            'cf':0, 'ac':0, 're':0, 'cu':1}
+            'cf':0, 'ac':0, 're':0, 'cu':1, 'nl':0}
     if request.method == 'GET':
         return render_template('cluster/cluster.html', menu=menu, weather=get_weather_main())
     else:
@@ -41,9 +39,9 @@ def cluster():
         current_app.logger.debug(f"{k_number}, {f_csv}, {file_csv}")
 
         df_csv = pd.read_csv(file_csv)
-     
-        X = df_csv.drop(columns={'선택한 것'}, axis=1)
-        y = df_csv['선택한것']
+        # 전처리 - 정규화
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(df_csv.iloc[:, :-1])
 
         # 차원 축소(PCA)
         pca = PCA(n_components=2)

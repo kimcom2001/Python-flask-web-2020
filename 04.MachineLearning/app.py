@@ -26,6 +26,7 @@ app.register_blueprint(aclsf_bp, url_prefix='/advanced')
 app.register_blueprint(rgrs_bp, url_prefix='/regression')
 app.register_blueprint(clus_bp, url_prefix='/cluster')
 
+
 def get_weather_main():
     ''' weather = None
     try:
